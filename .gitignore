@@ -1,0 +1,10 @@
+# Editors generated files
+.vscode
+
+# Script generated files
+fail-*.txt
+log-*.txt
+dist
+
+# Input files
+list.txt

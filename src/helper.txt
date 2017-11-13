@@ -1,0 +1,16 @@
+USAGE:
+	./fromwebtopdf.sh --input [list] [options]
+
+LIST:
+	The list is a file containing entries with the source url and the
+	target pdf name.
+	Example:
+		https://fr.wikipedia.org/wiki/Paris paris.pdf
+		https://fr.wikipedia.org/wiki/France france.pdf
+
+OPTIONS:
+	-c --clean: delete log and fail files.
+	-r --rebuild: do not use cache for the container build.
+	-i --input: specify the list to take input from.
+	-l --log: log the activity of the container build and the pdf generation.
+	-h --help: display this help.
