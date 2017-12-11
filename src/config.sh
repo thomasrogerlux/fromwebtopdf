@@ -8,6 +8,8 @@ export wkhtmltopdf_bin="/usr/bin/wkhtmltopdf"
 
 export docker_flags="-u $(id -u) --net=host --rm -v $(pwd):/mnt -w /mnt"
 
+export default_parallel_runs=10
+
 export log_file="log-$time.txt"
 
 export fail_file="fail-$time.txt"

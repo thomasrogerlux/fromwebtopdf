@@ -7,6 +7,7 @@ source ./src/config.sh
 rebuild=0
 clean=0
 log=0
+parallel_runs=$default_parallel_runs
 
 function get_args {
     while [[ $# -gt 0 ]]
@@ -23,6 +24,11 @@ function get_args {
             ;;
 			-l|--log)
 				log=1
+				shift
+			;;
+			-p|--parallel)
+				parallel_runs=$2
+				shift
 				shift
 			;;
 			-i|--input)
@@ -94,7 +100,7 @@ function build_docker_image {
 }
 
 function launch_container {
-	docker run $docker_flags fromwebtopdf /mnt/src/generator.sh $list $log_file $fail_file
+	docker run $docker_flags fromwebtopdf /mnt/src/generator.sh $list $log_file $fail_file $parallel_runs
 }
 
 function main {

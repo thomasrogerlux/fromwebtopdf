@@ -5,6 +5,7 @@ source ./src/config.sh
 export list=$1
 export log_file=$2
 export fail_file=$3
+export parallel_runs=$4
 
 function create_pdf {
 	args=($@)
@@ -30,7 +31,7 @@ function create_pdf {
 
 function main {
 	export -f create_pdf
-	parallel -j 10 -a $list create_pdf
+	parallel -j $parallel_runs -a $list create_pdf
 	wait
 }
 
