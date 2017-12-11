@@ -79,9 +79,9 @@ function build_docker_image {
 
 	if [ $rebuild = 1 ]
 	then
-		docker build --no-cache -t fromwebtopdf ./docker &>> $log_file
+		docker build --no-cache -t fromwebtopdf -f ./docker/Dockerfile . >> $log_file
 	else
-		docker build -t fromwebtopdf ./docker &>> $log_file
+		docker build -t fromwebtopdf -f ./docker/Dockerfile . >> $log_file
 	fi
 
 	if [ $? = 0 ]

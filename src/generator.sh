@@ -2,40 +2,35 @@
 
 source ./src/config.sh
 
-list=$1
-log_file=$2
-fail_file=$3
+export list=$1
+export log_file=$2
+export fail_file=$3
 
 function create_pdf {
-	if [ ! $1 ] || [ ! $2 ]
+	args=($@)
+
+	url="${args[0]}"
+	name="${args[1]}"
+
+	if [ ! "$url" ] || [ ! "$name" ]
 	then
 		return
 	fi
 
-	$wkhtmltopdf_bin $wkhtmltopdf_flags "$1" "dist/$2" &>> $log_file
+	$wkhtmltopdf_bin $wkhtmltopdf_flags $url "dist/$name" &>> $log_file
 	
 	if [ $? = 0 ]
 	then
-		echo -e "[${GREEN}OK${NORMAL}] Generate $2 from $1"
+		echo -e "[${GREEN}OK${NORMAL}] Generate $name from $url"
 	else
-		echo "$1 $2" >> $fail_file
-		echo -e "[${RED}KO${NORMAL}] Generate $2 from $1"
+		echo "$url $name" >> $fail_file
+		echo -e "[${RED}KO${NORMAL}] Generate $name from $url"
 	fi
 }
 
 function main {
-	cnt=0
-
-	while read link
-	do
-		create_pdf $link &
-		cnt=$((cnt+1))
-		if [ $((cnt%10)) = 0 ]
-		then
-			wait
-		fi
-	done < $list
-
+	export -f create_pdf
+	parallel -j 10 -a $list create_pdf
 	wait
 }
 
