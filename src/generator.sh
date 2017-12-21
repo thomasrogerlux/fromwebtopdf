@@ -30,6 +30,7 @@ function create_pdf {
 }
 
 function main {
+	echo "Starting pdf generation"
 	export -f create_pdf
 	parallel -j $parallel_runs -a $list create_pdf
 	wait
